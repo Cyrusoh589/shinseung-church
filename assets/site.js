@@ -20,7 +20,17 @@
     const open = top.classList.toggle("open");
     burger.setAttribute("aria-expanded", open); burger.innerHTML = open ? '<span aria-hidden="true">✕</span> 닫기' : '<span aria-hidden="true">☰</span> 메뉴';
     document.body.style.overflow = open ? "hidden" : "";
+    if (open) { $$(".menu>li.sub-open").forEach(x => x.classList.toggle("sub-open", false)); const h = $(".menu>li.here"); if (h) h.classList.add("sub-open"); }
   });
+  /* 폰 메뉴: 묶음 단추를 누르면 그 묶음만 펼친다(다 펼쳐져 한눈에 안 들어오던 것, 사용자 2026-11-14). PC는 그대로 이동 */
+  $$(".menu>li>a").forEach(a => a.addEventListener("click", e => {
+    const li = a.parentElement;
+    if (!top || !top.classList.contains("open") || !li.querySelector(".drop")) return;
+    e.preventDefault();
+    const was = li.classList.contains("sub-open");
+    $$(".menu>li.sub-open").forEach(x => x.classList.toggle("sub-open", false));
+    if (!was) li.classList.add("sub-open");
+  }));
   addEventListener("keydown", e => { if (e.key === "Escape" && top && top.classList.contains("open")) burger.click(); });
 
   /* 예배 시간 (기존 홈페이지 기준) */

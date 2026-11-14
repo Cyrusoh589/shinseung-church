@@ -753,3 +753,19 @@ h3.top-gap{font-size:24px}
 .kind.all:hover .go{background:var(--gold);color:var(--ink)}
 @media (max-width:560px){.kind .hd{min-height:0}}
 @media (min-width:561px){.kind .hd{min-height:142px}.kind.all .hd{min-height:0}}
+
+/* ── 폰 메뉴: 묶음 단추만 보이고 누르면 그 묶음만 펼침, 맨 위 자주 찾는 4곳 (사용자 2026-11-14) ── */
+.menu .mquick{display:none}
+@media (max-width:1000px){
+  .top.open .menu .mquick{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px 0 16px;margin-bottom:6px;border-bottom:1px solid rgba(255,255,255,.15)}
+  .top.open .menu .mquick a{display:flex;align-items:center;justify-content:center;min-height:56px;border-radius:14px;background:rgba(255,255,255,.1);color:#fff;font-weight:800;font-size:17px;text-decoration:none;text-align:center}
+  .top.open .menu .mquick a:nth-child(3){background:var(--gold);color:var(--ink)}
+  .top.open .menu>li:not(.mquick)>.drop{display:none}
+  .top.open .menu>li.sub-open>.drop{display:grid}
+  .top.open .menu>li>a{min-height:58px;justify-content:space-between}
+  .top.open .menu>li>a::after{display:block;width:9px;height:9px;transition:transform .2s}
+  .top.open .menu>li.sub-open>a::after{transform:rotate(-135deg) translateY(-2px)}
+  .top.open .menu>li.sub-open>a{color:var(--gold)}
+}
+@media (max-width:1000px){.top.open .menu .mquick a{border:0;justify-content:center;padding:0 8px;font-size:17px}.top.open .menu .mquick a::after{display:none}}
+@media (max-width:1000px){.top.open .drop a[aria-current]{background:rgba(255,255,255,.14);color:var(--gold);font-weight:900}}

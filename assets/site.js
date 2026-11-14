@@ -84,9 +84,12 @@
     const f = fmt(nx.at.getHours(), nx.at.getMinutes()), p2 = n => String(n).padStart(2, "0");
     const word = nx.at.toDateString() === now.toDateString() ? "오늘" : ["일", "월", "화", "수", "목", "금", "토"][nx.at.getDay()] + "요일";
     nm.textContent = `${nx.n} · ${word} ${f.ap} ${f.t}`;
-    ct.textContent = (d ? "D-" + d + " " : "") + p2(h) + ":" + p2(m) + ":" + p2(s) + " 남음";
+    const mins = d * 1440 + h * 60 + m;  /* 초 단위 대신 대략의 남은 시간(회의 15:36: 어르신이 어지럽지 않게) */
+    const dayGap = Math.round((new Date(nx.at.getFullYear(), nx.at.getMonth(), nx.at.getDate()) - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 86400000);
+    /* 남은 시간은 계속 바뀌는 숫자라 말로(근거집 검사·어르신 읽기): 곧 / 오늘 / 내일 / ○요일 */
+    ct.textContent = mins < 60 ? "곧 시작해요" : dayGap === 0 ? "오늘 만나요" : dayGap === 1 ? "내일 만나요" : ["일", "월", "화", "수", "목", "금", "토"][nx.at.getDay()] + "요일에 만나요";
   }
-  if (nm && ct) { tick(); setInterval(tick, 1000); }
+  if (nm && ct) { tick(); setInterval(tick, 30000); }
 
   /* 옆으로 넘치는 버튼 줄(하위 메뉴, 예배별 설교): 지금 쪽을 가운데로, 더 있으면 오른쪽 끝을 흐리게 */
   $$(".subnav ul, .boards ul").forEach(ul => {

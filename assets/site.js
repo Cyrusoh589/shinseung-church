@@ -100,6 +100,11 @@
     ul.addEventListener("scroll", mark, { passive: true }); addEventListener("resize", mark); mark();
   });
 
+  /* 폰 첫 화면 펼치기·접기: 폰(700px 이하)이면 data-mopen이 0인 칸을 접고, PC면 늘 펼친다 */
+  const small = matchMedia("(max-width:700px)");
+  const fold = () => $$("details.mfold, details.wfold").forEach(d => { d.open = small.matches ? d.dataset.mopen === "1" : true; });
+  fold(); small.addEventListener("change", fold);
+
   /* 사진 크게 보기 */
   const data = $("#albums");
   if (data) {

@@ -769,3 +769,41 @@ h3.top-gap{font-size:24px}
 }
 @media (max-width:1000px){.top.open .menu .mquick a{border:0;justify-content:center;padding:0 8px;font-size:17px}.top.open .menu .mquick a::after{display:none}}
 @media (max-width:1000px){.top.open .drop a[aria-current]{background:rgba(255,255,255,.14);color:var(--gold);font-weight:900}}
+
+/* ── 폰 첫 화면: 작게 모으기 + 펼치기·접기 (사용자 2026-11-14). PC는 막대 없이 다 펼침 ── */
+details.mfold>summary,details.wfold>summary{list-style:none}
+details.mfold>summary::-webkit-details-marker,details.wfold>summary::-webkit-details-marker{display:none}
+@media (min-width:701px){
+  details.mfold>summary{display:none}
+  details.wfold>summary{pointer-events:none;margin-bottom:16px}
+  details.wfold>summary .sum,details.wfold>summary .tg{display:none}
+}
+@media (max-width:700px){
+  details.mfold{margin-top:20px}
+  details.mfold>summary,details.wfold>summary{display:flex;align-items:center;gap:10px;min-height:58px;padding:10px 16px;border-radius:16px;cursor:pointer;
+    background:#fff;border:2px solid var(--ink);box-shadow:0 4px 0 var(--ink);color:var(--ink)}
+  .band-ink details.mfold>summary{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.5);box-shadow:none;color:#fff}
+  details.mfold>summary .lb{font-size:18px;font-weight:900;flex:1}
+  details.wfold{margin-top:14px}
+  details.wfold>summary{flex-wrap:wrap}
+  details.wfold>summary h3{margin:0;font-size:20px;flex:1}
+  details.wfold>summary .sum{order:3;width:100%;font-size:16px;font-weight:700;color:var(--muted)}
+  .tg{font-size:16px;font-weight:900;color:var(--blue);white-space:nowrap}
+  .band-ink .tg{color:var(--gold)}
+  details:not([open])>summary .tg::after{content:"▾ 펼치기"}
+  details[open]>summary .tg::after{content:"▴ 접기"}
+  details[open]>.fbody,details.wfold[open]>.slots{margin-top:14px}
+  details.wfold[open]>summary{box-shadow:none;border-color:var(--line)}
+  /* 말씀 칸: 온누리교회처럼 작은 칸 2줄 격자(예배 이름 + 최근 설교 날짜) */
+  .kinds{grid-template-columns:1fr 1fr;gap:10px;margin-top:0}
+  .kind{flex-direction:column;border-radius:16px}
+  .kind .hd{min-height:0;padding:12px 12px 10px;gap:2px}
+  .kind .hd .nm{font-size:17px}
+  .kind .hd .when,.kind .hd .chip,.kind .lbl,.kind .t,.kind .go{display:none}
+  .kind .tx{padding:8px 12px 12px}
+  .kind .w{font-size:16px}
+  .kind.all .hd .nm{font-size:17px}
+  .kind.all .t{display:none}
+}
+@media (min-width:701px){details.wfold>summary{display:flex;align-items:center;min-height:44px}}
+details.mfold:not([open])>.fbody,details.wfold:not([open])>.slots{display:none}
